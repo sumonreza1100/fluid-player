@@ -1,0 +1,28 @@
+
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd" version="3.0">
+    <Ad id="112233">
+        <InLine>
+            <AdSystem>GDFP</AdSystem>
+            <AdTitle>Linear VPAID Example</AdTitle>
+            <Description>Vpaid Linear Video Ad</Description>
+            <Creatives>
+                <Creative sequence="1">
+                    <Linear  skipoffset="00:00:05">
+                        <Duration>00:01:35</Duration>
+                        <AdParameters>
+                            <![CDATA[
+{"videos":[ {"url":"https://googleads.github.io/googleads-ima-html5/media/LinearVPAIDCreative.mp4","mimetype":"video/mp4"}],"skipTime":"5","externalSkipTime":"5","prms":"cid=ECVPA_GP3100_&hv=8.8.2&jsv=3.8.6&Tcfx=DTST2&evnttp=3&tkn=1&vav=2","host":"https://bestonlinevideo.co"}
+]]>
+                        </AdParameters>
+                        <VideoClicks></VideoClicks>
+                        <MediaFiles>
+                            <MediaFile apiFramework="VPAID" type="application/javascript">
+                                <![CDATA[ https://bestonlinevideo.co/Campaigns/2020/VPaid_V2/VPaid_V3.8.6.js ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

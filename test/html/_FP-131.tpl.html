@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP-131</title>
+    <style>
+        body{
+            width:100%
+        }
+        .test{
+            padding-top: 10px;
+            padding-bottom:10px;
+            text-align: center;
+            margin-left: 25%;
+            margin-right: 25%;
+            display:flex;
+        }
+        @media screen and (max-width: 480px) {
+            .test{
+                margin:auto 0;
+                display:block;
+                width:100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1> VPAID </h1>
+
+<video id='my-video' controls style="width: 640px; height: 360px;">
+    <source src='https://cdn.fluidplayer.com/videos/valerian-480p.mkv' title='720p' type='video/mp4'>
+</video>
+
+<%= htmlWebpackPlugin.tags.bodyTags %>
+
+<script type="text/javascript">
+    var player = fluidPlayer(
+        'my-video',
+        {
+            layoutControls: {
+                mute: true,
+                autoPlay: true
+            },
+            vastOptions: {
+                allowVPAID: true,
+                adList: [
+                    {
+                        roll: 'preRoll',
+                        //astTag: 'https://recentstream.com/vast.xml'
+                        vastTag: '/static/vpaid_fp-131.tpl.xml'
+                        // vastTag: '/static/vpaid_fp-131_2.tpl.xml'
+                        // vastTag: '/static/vpaid_linear.xml'
+                        //vastTag: 'https://engine.asf4f.us/?861779492&ag_custom_clickidadnetwork={conversions_tracking}&ag_custom_trackingcode={src_hostname}&ag_custom_utmterm={src_hostname}'
+                    }
+                ]
+            }
+        }
+    );
+</script>
+<br>
+</body>
+</html>
