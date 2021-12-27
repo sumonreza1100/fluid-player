@@ -1,0 +1,26 @@
+<!-- Define a video with sources to attach Fluid Player to -->
+<video id="example-player">
+    <source src="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4" type="video/mp4"/>
+</video>
+
+<!-- Place before </body> tag -->
+<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+<script>
+    // fluidPlayer method is global when CDN distribution is used.
+    var player = fluidPlayer(
+        'example-player',
+        {
+            debug: true,
+            vastOptions: {
+                allowVPAID: true,
+                adList: [
+                    {
+                        roll: 'preRoll',
+                        vastTag: 'https://syndication.realsrv.com/splash.php?idzone=4454682',
+                        adText: 'Advertising supports us directly'
+                    }
+                ]
+            }
+        }
+    );
+</script>

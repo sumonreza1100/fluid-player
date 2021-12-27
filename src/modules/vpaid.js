@@ -51,12 +51,31 @@ export default function (playerInstance, options) {
     playerInstance.onVpaidAdPaused = () => {
         playerInstance.vpaidTimeoutTimerClear();
         playerInstance.debugMessage("onAdPaused");
+        if (playerInstance.debug) {
+            playerInstance.debug.timeNow = null;
+        }
     };
 
     // Callback for AdPlaying
     playerInstance.onVpaidAdPlaying = () => {
         playerInstance.vpaidTimeoutTimerClear();
         playerInstance.debugMessage("onAdPlaying");
+
+        // Checks if vpaid has updated the remaining time after some time has passed
+        (() => {
+            playerInstance.debug = {
+                timeNow: playerInstance.getVpaidAdRemainingTime()
+            }
+
+            setTimeout(() => {
+                playerInstance.debug.timeAfter = playerInstance.getVpaidAdRemainingTime();
+                console.log(playerInstance.debug.timeNow, playerInstance.debug.timeAfter);
+                if (playerInstance.debug.timeNow === playerInstance.debug.timeAfter) {
+                    // trigger the tracking event for the current time
+                    playerInstance.scheduleTrackingEvent(playerInstance.debug.timeNow, playerInstance.vastOptions.duration);
+                }
+            }, 5000);
+        })();
     };
 
     // Callback for AdError
@@ -502,21 +521,21 @@ export default function (playerInstance, options) {
         }, 100);
 
         // Handles updates for generic iframes
-        vpaidIframe.contentWindow.addEventListener('message', (event) =>  {
-            const parsedEvent = (() => {
-                try { return JSON.parse(event.data); }
-                catch (e) { /* do nothing */ }
-            })();
-
-            if (
-                parsedEvent &&
-                parsedEvent.event === 'infoDelivery' &&
-                parsedEvent.info &&
-                parsedEvent.info.currentTime
-            ) {
-                timeUpdateHandler(parsedEvent.info.currentTime);
-            }
-        })
+        // vpaidIframe.contentWindow.addEventListener('message', (event) =>  {
+        //     const parsedEvent = (() => {
+        //         try { return JSON.parse(event.data); }
+        //         catch (e) { /* do nothing */ }
+        //     })();
+        //
+        //     if (
+        //         parsedEvent &&
+        //         parsedEvent.event === 'infoDelivery' &&
+        //         parsedEvent.info &&
+        //         parsedEvent.info.currentTime
+        //     ) {
+        //         timeUpdateHandler(parsedEvent.info.currentTime);
+        //     }
+        // })
     };
 
     playerInstance.onVpaidEnded = (event) => {
