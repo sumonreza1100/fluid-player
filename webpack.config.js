@@ -97,7 +97,8 @@ module.exports = (env, argv) => {
         // Copy static assets for E2E
         plugins.push(new CopyPlugin(
             [
-                {from: path.resolve(__dirname, 'test/static/'), to: path.resolve(wpDistOptions.path, 'static')}
+                {from: path.resolve(__dirname, 'test/static/'), to: path.resolve(wpDistOptions.path, 'static')},
+                {from: path.resolve(__dirname, 'dist/'), to: path.resolve(wpDistOptions.path, '')},
             ]
         ));
     }
@@ -118,8 +119,8 @@ module.exports = (env, argv) => {
             minimize: wpMode !== 'development'
         },
         output: {
-            filename: '[name].min.js',
-            chunkFilename: '[name].[chunkhash].min.js',
+            filename: '[name].min.js.tmp',
+            chunkFilename: '[name].[chunkhash].min.js.tmp',
             path: wpDistOptions.path,
             publicPath: wpDistOptions.publicPath
         },
